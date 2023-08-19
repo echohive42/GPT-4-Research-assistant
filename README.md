@@ -34,7 +34,7 @@ The GPT-4 Research Assistant is a tool designed to leverage the power of GPT-4 i
 - The content extraction is limited to the first 20,000 characters of the paper.
 - The tool depends on external libraries and tools which need to be set up correctly.
 
-## Future Work:
-- Integration with other academic paper databases.
-- Enhancements to the summarization process for more nuanced summaries.
-- Additional features such as citation extraction and analysis.
+### [Search all my videos](https://www.echohive.live/)
+
+### [Support my work and download source code for 100+ projects](https://www.patreon.com/echohive42)
+Become a patron to access exclusive content and support ongoing projects.
