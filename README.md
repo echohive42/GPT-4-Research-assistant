@@ -9,7 +9,8 @@ The GPT-4 Research Assistant is a tool designed to leverage the power of GPT-4 i
 - **PDF Download**: Downloads the selected paper in PDF format.
 - **Content Extraction**: Extracts text from the downloaded PDF paper.
 - **Paper Summary**: Summarizes the paper using GPT-4 and suggests a new search term for future research.
-  
+
+[Watch Video](https://youtu.be/hmzUo4H-0-A)
 [![Thumbnail](https://img.youtube.com/vi/hmzUo4H-0-A/0.jpg)](https://youtu.be/hmzUo4H-0-A)
 
 
