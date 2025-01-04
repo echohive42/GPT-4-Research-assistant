@@ -1,31 +1,51 @@
-import openai
+from openai import AsyncOpenAI
+import os
+from termcolor import colored
+import asyncio
 
 class GPTChat:
-    def __init__(self, sys_message, model='gpt-3.5-turbo-16k-0613'):
+    def __init__(self, sys_message, model='gpt-4o'):
         self.messages = [{'role': 'system', 'content': sys_message}]
         self.model = model
+        try:
+            self.client = AsyncOpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+            print(colored("✓ OpenAI client initialized successfully", "green"))
+        except Exception as e:
+            print(colored(f"✗ Error initializing OpenAI client: {str(e)}", "red"))
+            raise
 
     def add_message(self, role, content):
         self.messages.append({'role': role, 'content': content})
+        print(colored(f"→ Added {role} message", "cyan"))
 
-    def get_gpt3_response(self, user_input):
+    async def get_gpt_response(self, user_input):
         self.add_message('user', user_input)
         
-        response = openai.ChatCompletion.create(
-            model=self.model,
-            messages=self.messages,
-            temperature=0.3,
-            stream=True
-        )
+        try:
+            print(colored("→ Sending request to OpenAI...", "yellow"))
+            response = await self.client.chat.completions.create(
+                model=self.model,
+                messages=self.messages,
+                temperature=0.3,
+                stream=True
+            )
 
-        responses = ""
+            responses = ""
+            async for chunk in response:
+                if chunk.choices[0].delta.content is not None:
+                    response_content = chunk.choices[0].delta.content
+                    responses += response_content
+                    print(response_content, end='', flush=True)
 
-        for chunk in response:
-            response_content = chunk.get("choices", [{}])[0].get("delta", {}).get("content")
-            if response_content:
-                responses += response_content
-                print(response_content, end='', flush=True)
+            self.add_message('assistant', responses)
+            print(colored("\n✓ Response received and processed", "green"))
+            return responses
 
-        self.add_message('assistant', responses)
+        except Exception as e:
+            error_msg = f"✗ Error getting GPT response: {str(e)}"
+            print(colored(error_msg, "red"))
+            raise
 
-        return responses
+    def get_completion(self, user_input):
+        """Synchronous wrapper for getting GPT completion"""
+        return asyncio.run(self.get_gpt_response(user_input))

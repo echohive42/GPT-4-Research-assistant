@@ -1,3 +1,5 @@
-openai==0.27.8
-PyPDF2==3.0.1
-arxiv==1.4.7
+openai
+PyPDF2
+arxiv
+termcolor
+requests

@@ -1,40 +1,114 @@
+# GPT-4o Research Assistant
 
-# GPT-4 Research Assistant
+The GPT-4o Research Assistant is a powerful tool designed to leverage GPT-4o in assisting with academic research. It searches for academic papers on ArXiv, identifies the most promising paper based on a given search term, downloads the paper, extracts its contents, and then summarizes it. The tool also suggests a new search term for subsequent research, creating an automated research exploration chain.
 
-The GPT-4 Research Assistant is a tool designed to leverage the power of GPT-4 in assisting with academic research. It searches for academic papers on ArXiv, identifies the most promising paper based on a given search term, downloads the paper, extracts its contents, and then summarizes it. The tool also suggests a new search term for subsequent research.
+## Features
 
-## Features:
-- **Search ArXiv Papers**: Queries the ArXiv database for academic papers based on a given search term.
-- **Paper Selection**: Utilizes GPT-4 to choose the most interesting and promising paper from the search results.
-- **PDF Download**: Downloads the selected paper in PDF format.
-- **Content Extraction**: Extracts text from the downloaded PDF paper.
-- **Paper Summary**: Summarizes the paper using GPT-4 and suggests a new search term for future research.
+- **Organized Research Storage**:
 
-[Watch Video](https://youtu.be/hmzUo4H-0-A)
-[![Thumbnail](https://img.youtube.com/vi/hmzUo4H-0-A/0.jpg)](https://youtu.be/hmzUo4H-0-A)
+  - Creates a structured `research_papers` directory
+  - Organizes papers in subdirectories based on search terms
+  - Saves both PDFs and their summaries in respective folders
+- **ArXiv Integration**:
 
+  - Queries the ArXiv database for academic papers
+  - Supports customizable number of results (default: 10)
+  - Automatically filters out previously selected papers
+- **Intelligent Paper Selection**:
 
-## How to Use:
+  - Uses GPT-4O to analyze and choose the most interesting paper
+  - Provides reasoning for paper selection
+  - Handles paper deduplication across iterations
+- **Automated Processing**:
 
-1. **Setup**:
-    - Ensure you have the required libraries installed (`requests`, and any other necessary libraries).
-    - Setup the required API keys and configurations for GPT-4.
+  - Downloads selected papers in PDF format
+  - Extracts and processes text content
+  - Generates concise summaries using GPT-4O
+  - Suggests new research directions
+- **User-Friendly Output**:
 
-2. **Running the Tool**:
-    - Set the initial search term (default is "coding ability of large language models").
-    - Determine how many turns or iterations you'd like the tool to perform (default is 3).
-    - Run the script.
-    
-3. **Output**:
-    - The tool will print the title of the selected paper and its summary.
-    - A new search term will be suggested for the next iteration.
+  - Colored terminal output for better readability
+  - Clear progress indicators
+  - Detailed error messages
+  - Structured file organization
 
-## Limitations:
-- The tool is currently set to retrieve a maximum of 10 papers from ArXiv per search.
-- The content extraction is limited to the first 20,000 characters of the paper.
-- The tool depends on external libraries and tools which need to be set up correctly.
+## Directory Structure
+
+```
+research_papers/
+    └── search_term_sanitized/         # First 30 chars of search term
+        ├── paper_title.pdf            # Downloaded paper
+        └── paper_title_summary.txt    # GPT-generated summary
+```
+
+## Setup
+
+1. **Environment Setup**:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. **API Key Configuration**:
+
+   - Set your OpenAI API key as an environment variable:
+
+   ```bash
+   export OPENAI_API_KEY='your-api-key'
+   ```
+
+## Usage
+
+1. **Basic Usage**:
+
+   ```bash
+   python main.py
+   ```
+
+   - Default search term: "coding ability of large language models"
+   - Default number of iterations: 3
+2. **Configuration**:
+   Modify the constants in `main.py` to customize:
+
+   - `MODEL`: GPT model to use (default: "gpt-4o")
+   - `MAX_RESULTS`: Number of papers to fetch (default: 10)
+   - `NUMBER_OF_TURNS`: Research iterations (default: 3)
+   - `INITIAL_SEARCH_TERM`: Starting search term
+
+## Features in Detail
+
+### Paper Selection
+
+- Fetches papers from ArXiv based on search term
+- GPT-4O analyzes paper summaries and selects the most promising one
+- Provides explanation for the selection
+
+### Paper Processing
+
+- Downloads PDF automatically
+- Extracts text content
+- Generates comprehensive summary
+- Saves both PDF and summary in organized folders
+
+### Research Chain
+
+- Analyzes paper content to suggest new research directions
+- Automatically uses suggested terms for next iteration
+- Maintains research continuity while exploring new areas
+
+### Error Handling
+
+- Robust error handling throughout the process
+- Clear error messages with colored output
+- Graceful failure recovery
+
+## Limitations
+
+- Text extraction limited to first 100,000 characters per paper
+- Maximum of 10 papers retrieved per search
+- Requires stable internet connection for ArXiv and API access
 
 ### [Search all my videos](https://www.echohive.live/)
 
 ### [Support my work and download source code for 100+ projects](https://www.patreon.com/echohive42)
+
 Become a patron to access exclusive content and support ongoing projects.
